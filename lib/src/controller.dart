@@ -94,7 +94,7 @@ class StatefulMapController {
   List<Marker> get markers {
     final localMarkers = <Marker>[
       ..._markersState.markers,
-      ..._statefulMarkersState.markers
+      ..._statefulMarkersState.markers,
     ];
     return localMarkers;
   }
@@ -267,6 +267,7 @@ class StatefulMapController {
     Color color = Colors.lightBlue,
     double borderWidth = 0.0,
     Color borderColor = const Color(0xFFFFFF00),
+    bool isFilled = false,
   }) =>
       _polygonsState.addPolygon(
         name: name,
@@ -274,6 +275,7 @@ class StatefulMapController {
         color: color,
         borderWidth: borderWidth,
         borderColor: borderColor,
+        isFilled: isFilled,
       );
 
   /// Display some geojson data on the map
@@ -282,6 +284,10 @@ class StatefulMapController {
     bool verbose = false,
     Icon markerIcon = const Icon(Icons.location_on),
     bool noIsolate = kIsWeb,
+    double? borderWidth,
+    bool isFilled = false,
+    Color? fillColor,
+    Color? borderColor,
   }) async {
     if (verbose) {
       debugPrint("From geojson $data");
@@ -345,7 +351,14 @@ class StatefulMapController {
           for (final geoSerie in poly.geoSeries) {
             final name =
                 geoSerie.name.isEmpty ? const Uuid().v4() : geoSerie.name;
-            addPolygon(name: name, points: geoSerie.toLatLng());
+            addPolygon(
+              name: name,
+              points: geoSerie.toLatLng(),
+              color: fillColor ?? Colors.lightBlue,
+              borderColor: borderColor ?? Colors.white,
+              borderWidth: borderWidth ?? 0.0,
+              isFilled: isFilled,
+            );
           }
           break;
         case GeoJsonFeatureType.multipolygon:
@@ -354,7 +367,14 @@ class StatefulMapController {
             for (final geoSerie in poly.geoSeries) {
               final name =
                   geoSerie.name.isEmpty ? const Uuid().v4() : geoSerie.name;
-              addPolygon(name: name, points: geoSerie.toLatLng());
+              addPolygon(
+                name: name,
+                points: geoSerie.toLatLng(),
+                color: fillColor ?? Colors.lightBlue,
+                borderColor: borderColor ?? Colors.white,
+                borderWidth: borderWidth ?? 0.0,
+                isFilled: isFilled,
+              );
             }
           }
           break;

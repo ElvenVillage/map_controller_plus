@@ -6,11 +6,11 @@ class IndexPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         body: Center(
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             if (!kIsWeb)
               MainButton(
                 icon: Icons.filter,
@@ -58,7 +58,7 @@ class MainButton extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
           child: Text(text,
               textAlign: TextAlign.center,
-              textScaleFactor: 1.3,
+              textScaler: const TextScaler.linear(1.3),
               style: const TextStyle(color: Colors.grey)),
         )
       ]),

@@ -29,12 +29,16 @@ class PolygonsState {
     required Color color,
     required double borderWidth,
     required Color borderColor,
+    bool isFilled = false,
   }) {
     _namedPolygons[name] = Polygon(
       points: points,
+      label: name,
+      labelStyle: const TextStyle(color: Colors.black),
       color: color,
       borderStrokeWidth: borderWidth,
       borderColor: borderColor,
+      isFilled: isFilled,
     );
     notify(
       "updatePolygons",

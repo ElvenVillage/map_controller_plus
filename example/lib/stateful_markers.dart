@@ -56,7 +56,8 @@ class _StatefulMarkersPageState extends State<StatefulMarkersPage> {
                           color: Colors.white,
                           child: Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: Text(place.name, textScaleFactor: 1.3))),
+                              child: Text(place.name,
+                                  textScaler: const TextScaler.linear(1.3)))),
                     ]);
                   } else {
                     w = markerIcon;
